@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.pandasonic.CustomerInfoActivity" >
+
+    <EditText
+        android:id="@+id/editCustomerPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editCustomerName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="Phone"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/editCustomerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editCustomerPhone"
+        android:layout_alignStart="@+id/editCustomerPhone"
+        android:layout_below="@+id/editCustomerPhone"
+        android:layout_marginTop="58dp"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textPostalAddress" />
+
+    <EditText
+        android:id="@+id/editCustomerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editCustomerPhone"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/editCustomerPhone"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editCustomerApt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/saveCustomerInfo"
+        android:layout_alignLeft="@+id/editCustomerAddress"
+        android:layout_alignStart="@+id/editCustomerAddress"
+        android:layout_marginBottom="49dp"
+        android:ems="10"
+        android:hint="Apartment" />
+
+    <Button
+        android:id="@+id/saveCustomerInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editCustomerApt"
+        android:layout_alignStart="@+id/editCustomerApt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28dp"
+        android:onClick="saveCustomerInfo"
+        android:text="@string/submit" />
+
+    <Button
+        android:id="@+id/queryCustomerInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/saveCustomerInfo"
+        android:layout_alignBottom="@+id/saveCustomerInfo"
+        android:layout_alignRight="@+id/editCustomerApt"
+        android:layout_alignEnd="@+id/editCustomerApt"
+        android:onClick="queryCustomerInfo"
+        android:text="@string/query" />
+
+</RelativeLayout>
