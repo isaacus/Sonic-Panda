@@ -3,7 +3,7 @@
     android:id="@+id/customer_detail"
     style="?android:attr/textAppearanceLarge"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="200dp"
     android:padding="16dp"
     android:textIsSelectable="true"
     tools:context="com.example.pandasonic.CustomerDetailFragment" />

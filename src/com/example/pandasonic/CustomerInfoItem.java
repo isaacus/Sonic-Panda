@@ -1,6 +1,6 @@
 package com.example.pandasonic;
 
-public class CustomerInfoItem {
+public class CustomerInfoItem extends InfoItem {
 	private String id = "";
 	private String name = "";
 	private String phone = "";
@@ -33,5 +33,18 @@ public class CustomerInfoItem {
 	
 	public String getApt(){
 		return apt;
+	}
+	
+	@Override
+	public String toString(){
+		String str = PandaSonicContract.CustomerInfo.COLUMN_NAME_PERSON_NAME + ": " + name + "\n" +
+				PandaSonicContract.CustomerInfo.COLUMN_NAME_PHONE + ": " + phone + "\n" + 
+				PandaSonicContract.CustomerInfo.COLUMN_NAME_ADDRESS + ": " + address + "\n" +
+				PandaSonicContract.CustomerInfo.COLUMN_NAME_APT + ": " + apt;
+		return str;		
+	}
+	
+	public String displayInfo(){
+		return phone;
 	}
 }

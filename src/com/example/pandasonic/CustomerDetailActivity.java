@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * An activity representing a single Customer detail screen. This activity is
@@ -63,5 +64,25 @@ public class CustomerDetailActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void deleteItem(View view) {
+		System.out.println("in deleting......");
+		InfoItem item = queryContent.ITEM_MAP.get((getIntent()
+				.getStringExtra(CustomerDetailFragment.ARG_ITEM_ID)));
+		
+		String itemID = item.getId();
+		
+		queryContent.pandaSonicContract.deleteInfo(itemID);
+		
+		queryContent.query();
+		
+		NavUtils.navigateUpTo(this, new Intent(this,
+				CustomerListActivity.class));
+	}
+	
+	public void editItem(View view) {
+		InfoItem item = queryContent.ITEM_MAP.get((getIntent()
+				.getStringExtra(CustomerDetailFragment.ARG_ITEM_ID)));
 	}
 }

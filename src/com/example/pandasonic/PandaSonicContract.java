@@ -27,14 +27,38 @@ public final class PandaSonicContract {
 			CustomerInfo.COLUMN_NAME_ADDRESS + TEXT_TYPE + COMMA_SEP +
 			CustomerInfo.COLUMN_NAME_APT + TEXT_TYPE + 
 			")";
+	private static final String SQL_CREATE_ORDERINFO = 
+			"CREATE TABLE" + OrderInfo.TABLE_NAME + "(" +
+			OrderInfo._ID + " INTEGER PRIMARY KEY," +
+			OrderInfo.COLUMN_NAME_PERSON_NAME + TEXT_TYPE + COMMA_SEP +
+			OrderInfo.COLUMN_NAME_PHONE + TEXT_TYPE + COMMA_SEP +
+			OrderInfo.COLUMN_NAME_ADDRESS + TEXT_TYPE + COMMA_SEP +
+			OrderInfo.COLUMN_NAME_APT + TEXT_TYPE + 
+			")";
+	private static final String SQL_CREATE_APARTMENTINFO = 
+			"CREATE TABLE" + ApartmentInfo.TABLE_NAME + "(" +
+			ApartmentInfo._ID + " INTEGER PRIMARY KEY," + 
+			ApartmentInfo.COLUMN_NAME_APARTMENT_NAME + TEXT_TYPE + COMMA_SEP +
+			ApartmentInfo.COLUMN_NAME_TYPE + TEXT_TYPE + COMMA_SEP +
+			ApartmentInfo.COLUMN_NAME_ADDRESS + TEXT_TYPE + COMMA_SEP +
+			ApartmentInfo.COLUMN_NAME_GATECODE + TEXT_TYPE +
+			")";
 	
 	private static final String SQL_DELETE_CUSTOMERINFO = 
 			"DROP TABLE IF EXISTS " + CustomerInfo.TABLE_NAME;
+	private static final String SQL_DELETE_ORDERINFO = 
+			"DROP TABLE IF EXISTS" + OrderInfo.TABLE_NAME;
+	private static final String SQL_DELETE_APARTMENTINFO = 
+			"DROP TABLE IF EXISTS" + ApartmentInfo.TABLE_NAME;
 	
 	public PandaSonicContract(Context context){
 		if(mDbHelper == null)
 			mDbHelper = new PandaSonicDbHelper(context, PandaSonicDbHelper.DATABASE_NAME, null, PandaSonicDbHelper.DATABASE_VERSION);
 	}
+	
+	//public static abstract class InfoRecord{
+	//	
+	//}
 	
 	public static abstract class CustomerInfo implements BaseColumns{
 		public static final String TABLE_NAME = "CustomerInformation";
@@ -42,6 +66,22 @@ public final class PandaSonicContract {
 		public static final String COLUMN_NAME_PHONE = "Phone";
 		public static final String COLUMN_NAME_ADDRESS = "Address";
 		public static final String COLUMN_NAME_APT = "ApartmentName";
+	}
+	
+	public static abstract class OrderInfo implements BaseColumns{
+		public static final String TABLE_NAME = "OrderInformation";
+		public static final String COLUMN_NAME_PERSON_NAME = "Name";
+		public static final String COLUMN_NAME_PHONE = "Phone";
+		public static final String COLUMN_NAME_ADDRESS = "Address";
+		public static final String COLUMN_NAME_APT = "ApartmentName";
+	}
+	
+	public static abstract class ApartmentInfo implements BaseColumns{
+		public static final String TABLE_NAME = "ApartmentInformation";
+		public static final String COLUMN_NAME_APARTMENT_NAME = "Name";
+		public static final String COLUMN_NAME_TYPE = "Type";
+		public static final String COLUMN_NAME_ADDRESS = "Address";
+		public static final String COLUMN_NAME_GATECODE = "GateCode";
 	}
 	
 	public class PandaSonicDbHelper extends SQLiteOpenHelper {
@@ -131,6 +171,30 @@ public final class PandaSonicContract {
 		return result;
 	}
 	
+	public Cursor queryInfo(String[] columnName, String[] columnValue, String sortOrder) {
+		SQLiteDatabase db = mDbHelper.getReadableDatabase();
+		
+		if(columnValue == null || columnValue.length == 0)
+			return null;
+					
+		String selection = null;
+		ArrayList<String> selectionArgs = new ArrayList<String>();
+
+		for(int i = 0; i < columnName.length; i++){
+			if(!(columnValue[i].matches(""))){
+				if(selection == null)
+					selection = columnName[i] + "=?";
+				else
+					selection += " AND " + columnName[i] + "=?";
+				selectionArgs.add(columnValue[i]);
+			}
+		}
+		
+		Cursor result = db.query(CustomerInfo.TABLE_NAME, null, selection, selectionArgs.toArray(new String[selectionArgs.size()]), null, null, sortOrder);
+		
+		return result;
+	}
+	
 	public int deleteCustomerInfo(String[] columnName, String[] columnValue){
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		
@@ -149,6 +213,19 @@ public final class PandaSonicContract {
 				selectionArgs.add(columnValue[i]);
 			}
 		}
+		
+		return db.delete(CustomerInfo.TABLE_NAME, selection, selectionArgs.toArray(new String[selectionArgs.size()]));
+	}
+	
+	public int deleteInfo(String id) {
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+		
+		if(id == null || id.equals(""))
+			return 0;
+		
+		String selection = BaseColumns._ID + "=?" ;
+		ArrayList<String> selectionArgs = new ArrayList<String>();
+		selectionArgs.add(id);
 		
 		return db.delete(CustomerInfo.TABLE_NAME, selection, selectionArgs.toArray(new String[selectionArgs.size()]));
 	}

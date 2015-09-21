@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 
 public class CustomerInfoActivity extends Activity {
 
@@ -79,14 +80,33 @@ public class CustomerInfoActivity extends Activity {
 		
 		String[] columnsValue = {name, phone, address, apt};
 		
-		Cursor result = pandaSonicContract.queryCustomerInfo(columns, columnsValue, PandaSonicContract.CustomerInfo.COLUMN_NAME_PHONE);
+		queryContent.columnNames = columns;
+		queryContent.columnValues = columnsValue;
+		queryContent.sortOrder = PandaSonicContract.CustomerInfo.COLUMN_NAME_PHONE;
+		queryContent.pandaSonicContract = pandaSonicContract;
+		Cursor result = queryContent.query();
+		//Cursor result = pandaSonicContract.queryCustomerInfo(columns, columnsValue, PandaSonicContract.CustomerInfo.COLUMN_NAME_PHONE);
 		
 		if(!result.moveToFirst()){
 			System.out.println("No record!");
 			return;
 		}	
 		
-		ArrayList<CustomerInfoItem> customerInfoList = new ArrayList<CustomerInfoItem>();
+		queryContent.result = result;
+		queryContent.fromColumns = new String[]{
+				PandaSonicContract.CustomerInfo.COLUMN_NAME_PHONE
+		};
+		
+		queryContent.toViews = new int[]{android.R.id.text1};
+		
+		//SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_activated_1, result, fromColumns, toViews, 0);
+		//ListView listView = getListView();
+		//listView.setAdapter(adapter);
+		//requery
+		
+		//adapter.changeCursor();
+		
+		ArrayList<InfoItem> customerInfoList = new ArrayList<InfoItem>();
 		
 		do{
 			String id = result.getString(result.getColumnIndexOrThrow(PandaSonicContract.CustomerInfo._ID));
@@ -104,8 +124,8 @@ public class CustomerInfoActivity extends Activity {
 		}while(result.moveToNext());
 		
 		if(customerInfoList.size() > 0){
-			DummyContent.removeItems();
-			DummyContent.addItems(customerInfoList);
+			queryContent.removeItems();
+			queryContent.addItems(customerInfoList);
 		}
 		
 		Intent queryListIntent = new Intent(this, CustomerListActivity.class);

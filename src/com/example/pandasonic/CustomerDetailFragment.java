@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.pandasonic.dummy.DummyContent;
+//import com.example.pandasonic.dummy.DummyContent;
 
 /**
  * A fragment representing a single Customer detail screen. This fragment is
@@ -24,7 +24,7 @@ public class CustomerDetailFragment extends Fragment {
 	/**
 	 * The dummy content this fragment is presenting.
 	 */
-	private CustomerInfoItem mItem;
+	private InfoItem mItem;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -41,7 +41,7 @@ public class CustomerDetailFragment extends Fragment {
 			// Load the dummy content specified by the fragment
 			// arguments. In a real-world scenario, use a Loader
 			// to load content from a content provider.
-			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(
+			mItem = queryContent.ITEM_MAP.get(getArguments().getString(
 					ARG_ITEM_ID));
 		}
 	}
@@ -55,11 +55,7 @@ public class CustomerDetailFragment extends Fragment {
 		// Show the dummy content as text in a TextView.
 		if (mItem != null) {
 			((TextView) rootView.findViewById(R.id.customer_detail))
-					.setText(
-						PandaSonicContract.CustomerInfo.COLUMN_NAME_PERSON_NAME + ": " + mItem.getName() + "\n" +
-						PandaSonicContract.CustomerInfo.COLUMN_NAME_PHONE + ": " + mItem.getPhone() + "\n" + 
-						PandaSonicContract.CustomerInfo.COLUMN_NAME_ADDRESS + ": " + mItem.getAddress() + "\n" +
-						PandaSonicContract.CustomerInfo.COLUMN_NAME_APT + ": " + mItem.getApt());
+					.setText(mItem.toString());
 		}
 
 		return rootView;

@@ -8,8 +8,9 @@ import android.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
-import com.example.pandasonic.dummy.DummyContent;
+//import com.example.pandasonic.dummy.DummyContent;
 
 /**
  * A list fragment representing a list of Customers. This fragment also supports
@@ -39,6 +40,7 @@ public class CustomerListFragment extends ListFragment {
 	 */
 	private int mActivatedPosition = ListView.INVALID_POSITION;
 
+	private SimpleCursorAdapter adapter = null;
 	/**
 	 * A callback interface that all activities containing this fragment must
 	 * implement. This mechanism allows activities to be notified of item
@@ -66,6 +68,7 @@ public class CustomerListFragment extends ListFragment {
 	 * fragment (e.g. upon screen orientation changes).
 	 */
 	public CustomerListFragment() {
+		
 	}
 
 	@Override
@@ -73,13 +76,21 @@ public class CustomerListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		// TODO: replace with a real list adapter.
-		ArrayList<String> phoneList = new ArrayList<String>();
-		for(CustomerInfoItem customer : DummyContent.ITEMS){
-			phoneList.add(customer.getPhone());
+		ArrayList<String> displayList = new ArrayList<String>();
+		for(InfoItem item : queryContent.ITEMS){
+			displayList.add(item.displayInfo());
 		}
-		setListAdapter(new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, phoneList));
+		//setListAdapter(new ArrayAdapter<String>(getActivity(),
+		//		android.R.layout.simple_list_item_activated_1,
+		//		android.R.id.text1, displayList));
+		
+		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_activated_1, 
+				queryContent.result, queryContent.fromColumns, queryContent.toViews, 0);
+		
+		//requery
+		queryContent.adapter = adapter;
+		
+		setListAdapter(adapter);
 	}
 	
 	/*@Override
@@ -138,7 +149,7 @@ public class CustomerListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).getId());
+		mCallbacks.onItemSelected(queryContent.ITEMS.get(position).getId());
 	}
 
 	@Override
