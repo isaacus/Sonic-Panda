@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,6 +64,9 @@ public class CustomerInfoActivity extends Activity {
 		long result = pandaSonicContract.saveCustomerInfo(columns, columnsValue);
 		
 		System.out.println(result);
+		
+		NavUtils.navigateUpTo(this, new Intent(this,
+				MainActivity.class));
 	}
 	
 	public void queryCustomerInfo(View view){
