@@ -42,6 +42,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.pandasonic.CustomerListActivity" />
         </activity>
+        <activity
+            android:name=".VoiceRecognitionActivity"
+            android:label="@string/title_activity_voice_recognition" >
+        </activity>
     </application>
 
 </manifest>

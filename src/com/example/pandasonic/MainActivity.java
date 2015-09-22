@@ -48,4 +48,9 @@ public class MainActivity extends Activity {
 		Intent customerInfoIntent = new Intent(this, CustomerInfoActivity.class);
         startActivity(customerInfoIntent);
 	}
+	
+	public void voiceRecognition(View view){
+		Intent voiceRecognitionIntent = new Intent(this, VoiceRecognitionActivity.class);
+		startActivity(voiceRecognitionIntent);
+	}
 }
