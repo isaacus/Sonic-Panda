@@ -18,4 +18,14 @@
         android:onClick="selectCustomerInfo"
         android:text="@string/title_activity_customer_info" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/queryCustomerInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="57dp"
+        android:onClick="mapNavigation"
+        android:text="Button" />
+
 </RelativeLayout>

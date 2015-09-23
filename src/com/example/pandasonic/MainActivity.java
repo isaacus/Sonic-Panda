@@ -2,6 +2,7 @@ package com.example.pandasonic;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,5 +48,17 @@ public class MainActivity extends Activity {
 	public void selectCustomerInfo(View view){
 		Intent customerInfoIntent = new Intent(this, CustomerInfoActivity.class);
         startActivity(customerInfoIntent);
+	}
+	
+	public void mapNavigation(View view) {
+		//Uri gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988");
+		Uri gmmIntentUri = Uri.parse("google.navigation:q=806+Linda+Vista+Ave,+Arlington+Texas");
+		
+		Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+		
+		mapIntent.setPackage("com.google.android.apps.maps");
+		
+		if(mapIntent.resolveActivity(getPackageManager()) != null)
+			startActivity(mapIntent);
 	}
 }
