@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -41,6 +43,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.pandasonic.CustomerListActivity" />
+        </activity>
+        <activity
+            android:name=".RouteListActivity"
+            android:label="route plan"
+            android:screenOrientation="portrait">
+            
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pandasonic.RouteListActivity" />
         </activity>
     </application>
 
